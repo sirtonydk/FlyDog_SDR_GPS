@@ -96,21 +96,21 @@ set_property OFFCHIP_TERM NONE [all_outputs]
 # in Vivado for power analysis only
 set_load 6.000 [all_outputs]
 
-# 100 MHz
-create_clock -period 10 -name BBB_SCLK -waveform {0.000 5.00} [get_ports BBB_SCLK]
+# 48 MHz
+create_clock -period 20.833 -name BBB_SCLK -waveform {0.000 10.416} [get_ports BBB_SCLK]
 
 # 16.368 MHz
 create_clock -period 61.095 -name GPS_TCXO -waveform {0.000 30.548} [get_ports GPS_TCXO]
 
 # 125 MHz
-create_clock -period 8.000 -name ADC_CLKIN -waveform {0.000 4.000} [get_ports ADC_CLKIN]
+create_clock -period 15.000 -name ADC_CLKIN -waveform {0.000 7.500} [get_ports ADC_CLKIN]
 
-set_input_delay -clock [get_clocks ADC_CLKIN] -min -add_delay 1.300 [get_ports {ADC_DATA[*]}]
-set_input_delay -clock [get_clocks ADC_CLKIN] -max -add_delay 4.000 [get_ports {ADC_DATA[*]}]
-set_input_delay -clock [get_clocks ADC_CLKIN] -min -add_delay 1.300 [get_ports ADC_OVFL]
-set_input_delay -clock [get_clocks ADC_CLKIN] -max -add_delay 4.000 [get_ports ADC_OVFL]
-set_input_delay -clock [get_clocks BBB_SCLK] -min -add_delay 4.000 [get_ports BBB_MOSI]
-set_input_delay -clock [get_clocks BBB_SCLK] -max -add_delay 8.000 [get_ports BBB_MOSI]
+set_input_delay -clock [get_clocks ADC_CLKIN] -min -add_delay 1.400 [get_ports {ADC_DATA[*]}]
+set_input_delay -clock [get_clocks ADC_CLKIN] -max -add_delay 5.400 [get_ports {ADC_DATA[*]}]
+set_input_delay -clock [get_clocks ADC_CLKIN] -min -add_delay 1.400 [get_ports ADC_OVFL]
+set_input_delay -clock [get_clocks ADC_CLKIN] -max -add_delay 5.400 [get_ports ADC_OVFL]
+set_input_delay -clock [get_clocks BBB_SCLK] -min -add_delay 6.846 [get_ports BBB_MOSI]
+set_input_delay -clock [get_clocks BBB_SCLK] -max -add_delay 17.263 [get_ports BBB_MOSI]
 set_input_delay -clock [get_clocks GPS_TCXO] -min -add_delay 10.000 [get_ports IF_SGN]
 set_input_delay -clock [get_clocks GPS_TCXO] -max -add_delay 54.095 [get_ports IF_SGN]	; # gives Tsetup=7ns
 set_input_delay -clock [get_clocks GPS_TCXO] -min -add_delay 10.000 [get_ports IF_MAG]
@@ -135,10 +135,9 @@ set_false_path -from [get_ports {BBB_CS_N[0] BBB_CS_N[1]}] -to [get_clocks BBB_S
 set_false_path -rise_from [get_clocks BBB_SCLK] -to [get_ports BBB_MISO]
 
 # define async clock domains
-set_clock_groups -asynchronous -group [get_clocks GPS_TCXO] -group [get_clocks ADC_CLKIN]
-set_clock_groups -asynchronous -group [get_clocks ADC_CLKIN] -group [get_clocks GPS_TCXO]
-set_clock_groups -asynchronous -group [get_clocks GPS_TCXO] -group [get_clocks BBB_SCLK]
-set_clock_groups -asynchronous -group [get_clocks BBB_SCLK] -group [get_clocks GPS_TCXO]
+set_clock_groups -asynchronous -group [get_clocks ADC_CLKIN]
+set_clock_groups -asynchronous -group [get_clocks GPS_TCXO]
+set_clock_groups -asynchronous -group [get_clocks BBB_SCLK]
 
 # config
 set_property CONFIG_VOLTAGE 3.3 [current_design]
