@@ -720,7 +720,7 @@ bool wspr_msgs(char *msg, int rx_chan)
 // order matches wspr_autorun_u in wspr.js
 // only add new entries to the end so as not to disturb existing values stored in config
 static double wspr_cfs[] = {
-    137.5, 475.7, 1838.1, 3570.1, 3594.1, 5288.7, 5366.2, 7040.1, 10140.2, 14097.1, 18106.1, 21096.1, 24926.1, 28126.1,
+    137.5, 475.7, 1838.1, 3570.1, 3568.6, 5288.7, 5366.2, 7040.1, 10140.2, 14097.1, 18106.1, 21096.1, 24926.1, 28126.1,
     50294.5, 70092.5, 144490.5, 432301.5, 1296501.5, 6781.5, 13554.5
 };
 
